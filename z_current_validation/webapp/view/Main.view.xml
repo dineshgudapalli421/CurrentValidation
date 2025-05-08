@@ -27,12 +27,15 @@ xmlns:vh="sap.ui.mdc.filterbar.vh" xmlns:smartfield="sap.ui.comp.smartfield"
 								groupName="Group1" 
 								visibleInFilterBar="true" mandatory="true">
                                     <fb:control>
+                                        <!-- <MultiInput id="idAms"
+                                            valueHelpIconSrc="sap-icon://value-help" value="{filters>/idAms}"
+                                            width="60%"  
+                                            valueHelpRequest="onAmsVHRequested"/> -->
                                         <Input
                                              id="idAms" 
 											 width="90%"  
-											 showValueHelp="true"
-											 value="{filters>/idAms}"
-                                             class="sapUiSmallMarginBottom">
+											 showValueHelp="false"
+											 value="{filters>/idAms}">
                                         </Input>
                                         
                                     </fb:control>
@@ -45,11 +48,13 @@ xmlns:vh="sap.ui.mdc.filterbar.vh" xmlns:smartfield="sap.ui.comp.smartfield"
                                         <Input
                                          id="idEquipment" 
 										 width="90%"  
-										 showValueHelp="true"
-										 value="{filters>/idEquipment}"
-                                         class="sapUiSmallMarginBottom">
+										 showValueHelp="false"
+										 value="{filters>/idEquipment}">
                                         </Input>
-                                        
+                                        <!-- <MultiInput id="idEquipment"
+                                            valueHelpIconSrc="sap-icon://value-help" value="{filters>/idEquipment}"
+                                            width="60%"  
+                                            valueHelpRequest="onEquipmentVHRequested"/> -->
                                     </fb:control>
                                 </fb:FilterGroupItem>
 									<fb:FilterGroupItem 
@@ -61,8 +66,7 @@ xmlns:vh="sap.ui.mdc.filterbar.vh" xmlns:smartfield="sap.ui.comp.smartfield"
                                            <DateTimePicker
                                             id="idDTP1"
                                             width="100%"
-                                            placeholder="Enter Date &amp; Time"
-                                            class="sapUiSmallMarginBottom" />
+                                            placeholder="Enter Date &amp; Time"/>
                                                                                     
 											</fb:control>
 										</fb:FilterGroupItem>
@@ -76,8 +80,7 @@ xmlns:vh="sap.ui.mdc.filterbar.vh" xmlns:smartfield="sap.ui.comp.smartfield"
 												<DateTimePicker
                                             id="idDTP2"
                                             width="100%"
-                                            placeholder="Enter Date &amp; Time"
-                                            class="sapUiSmallMarginBottom" />
+                                            placeholder="Enter Date &amp; Time"/>
 											</fb:control>
 										</fb:FilterGroupItem>
 										 									

@@ -5,9 +5,9 @@ sap.ui.define([
     'sap/ui/model/FilterOperator',
     "sap/ui/model/json/JSONModel",
     'sap/m/MessageBox',
-    "sap/m/ToolbarSpacer",
-    "sap/ui/core/format/DateFormat"
-], (Controller, ODataModel, Filter, FilterOperator, JSONModel, MessageBox, ToolbarSpacer, DateFormat) => {
+    "sap/ui/core/format/DateFormat",
+    'sap/ui/model/type/String',
+], (Controller, ODataModel, Filter, FilterOperator, JSONModel, MessageBox, DateFormat, TypeString) => {
     "use strict";
 
     return Controller.extend("com.sap.lh.mr.zcurrentvalidation.controller.Main", {
@@ -16,12 +16,8 @@ sap.ui.define([
             oView.setModel(new JSONModel({
 				rowMode: "Fixed"
 			}), "ui");
+            //this._oAmsMultiInput = this.byId("idAms");
 
-			sap.ui.require(["sap/ui/table/sample/TableExampleUtils"], function(TableExampleUtils) {
-				const oTb = oView.byId("infobar");
-				oTb.addContent(new ToolbarSpacer());
-				oTb.addContent(TableExampleUtils.createInfoButton("sap/ui/table/sample/RowModes"));
-			}, function(oError) { /*ignore*/ });
         },
         onSearch: function () {
             const oView = this.getView();
@@ -76,6 +72,33 @@ sap.ui.define([
             var formatDate = oDateFormat.format(strDate);
             return formatDate;
             //return "datetime" + formatDate ;
-        }
+        },
+        onAmsVHRequested: function () {
+			this._oAmsMultiInput = this.byId("idAms");
+			this.loadFragment({
+				name: "com.sap.lh.mr.zcurrentvalidation.fragment.ams"
+			}).then(function (oDialog) {
+				this._oAmsDialog = oDialog;
+				oDialog.setRangeKeyFields([{
+					label: "AMS",
+					key: "ams",
+					type: "string",
+					typeInstance: new TypeString({}, { maxLength: 10 })
+				}]);
+				oDialog.setTokens(this._oAmsMultiInput.getTokens());
+				oDialog.open();
+			}.bind(this));
+		},
+		onAmsVHOkPress: function (oEvent) {
+			var aTokens = oEvent.getParameter("tokens");
+			this._oAmsMultiInput.setTokens(aTokens);
+			this._oAmsDialog.close();
+		},
+		onAmsVHCancelPress: function () {
+			this._oAmsDialog.close();
+		},
+		onAmsVHAfterClose: function () {
+			this._oAmsDialog.destroy();
+		},
     });
 });
